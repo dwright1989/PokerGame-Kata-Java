@@ -1,19 +1,23 @@
 package com.techreturners;
 
-public class Card {
-    private String suit;
-    private String value;
+import com.techreturners.Enums.CardSuit;
+import com.techreturners.Enums.CardValue;
 
-    public Card(String value, String suit) {
+public class Card {
+    private CardValue value;
+    private CardSuit suit;
+
+    public Card(CardValue value, CardSuit suit) {
         this.value = value;
         this.suit = suit;
     }
 
-    public String getSuit() {
+
+    public CardSuit getSuit() {
         return suit;
     }
 
-    public String getValue() {
+    public CardValue getValue() {
         return value;
     }
 }
