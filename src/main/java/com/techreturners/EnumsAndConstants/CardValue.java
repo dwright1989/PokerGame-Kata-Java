@@ -1,4 +1,4 @@
-package com.techreturners.Enums;
+package com.techreturners.EnumsAndConstants;
 
 public enum CardValue
 {

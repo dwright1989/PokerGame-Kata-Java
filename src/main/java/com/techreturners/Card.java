@@ -1,7 +1,7 @@
 package com.techreturners;
 
-import com.techreturners.Enums.CardSuit;
-import com.techreturners.Enums.CardValue;
+import com.techreturners.EnumsAndConstants.CardSuit;
+import com.techreturners.EnumsAndConstants.CardValue;
 
 public class Card {
     private CardValue value;
