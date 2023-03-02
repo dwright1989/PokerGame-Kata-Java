@@ -4,6 +4,7 @@ import com.techreturners.Enums.CardSuit;
 import com.techreturners.Enums.CardValue;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Deck {
@@ -22,6 +23,16 @@ public class Deck {
 
     public List<Card> getCards() {
         return cards;
+    }
+
+    public void shuffleCards(){
+        Collections.shuffle(cards);
+    }
+
+    public void printCards(){
+        for(Card card: cards){
+            System.out.println("Card: " + card.getValue() + "" + card.getSuit());
+        }
     }
 
 }
