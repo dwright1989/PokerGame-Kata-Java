@@ -16,7 +16,6 @@ public class HandEvaluator {
         - Royal flush
         - Straight flush
         - Four of a kind
-        - Full House
         */
         Hand winner = null;
         evaluateHand(one);
@@ -52,6 +51,22 @@ public class HandEvaluator {
             case FULL_HOUSE -> winner = betterFullHouse(one, two);
         }
         return winner;
+    }
+
+    /*
+    FOUR OF A KIND
+     */
+    public static boolean checkIfFourOfAKind(Hand hand){
+        List<Card> quad = getQuadFromCards(hand.getCards());
+        if(quad.size()==4){
+            hand.setResult(HandType.FOUR_OF_A_KIND);
+            return true;
+        }
+        return false;
+    }
+    private static List<Card> getQuadFromCards(List<Card> cards) {
+        return cards.stream().collect(groupingBy(Card::getValue))
+                .values().stream().filter(list->list.size()>=4).flatMap(List::stream).toList();
     }
 
     /*
@@ -179,7 +194,6 @@ public class HandEvaluator {
             return betterHighCardHand(one, two);
         }
     }
-
 
     /*
     HIGH CARD
