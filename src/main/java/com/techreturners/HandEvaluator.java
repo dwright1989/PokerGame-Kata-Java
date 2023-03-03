@@ -17,7 +17,6 @@ public class HandEvaluator {
         - Straight flush
         - Four of a kind
         - Full House
-        - Flush
         */
         Hand winner = null;
         evaluateHand(one);
@@ -34,6 +33,7 @@ public class HandEvaluator {
     }
     public static void evaluateHand(Hand hand){
         boolean evaluated =
+                checkIfFullHouse(hand) ||
                 checkIfFlush(hand) ||
                 checkIfStraight(hand) ||
                 checkIfThreeOfAKind(hand) ||
@@ -49,8 +49,32 @@ public class HandEvaluator {
             case THREE_OF_A_KIND -> winner = betterTrio(one, two);
             case STRAIGHT -> winner = betterStraight(one, two);
             case FLUSH -> winner = betterFlush(one, two);
+            case FULL_HOUSE -> winner = betterFullHouse(one, two);
         }
         return winner;
+    }
+
+    /*
+    FULL  HOUSE
+     */
+    public static boolean checkIfFullHouse(Hand hand){
+        boolean trio = checkIfThreeOfAKind(hand);
+        if(trio){
+            if(checkIfOnePair(hand)){
+                hand.setResult(HandType.FULL_HOUSE);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static Hand betterFullHouse(Hand one, Hand two) {
+        Hand bestTrio = betterTrio(one, two);
+        if(bestTrio!=null){
+            return bestTrio;
+        }else{
+            return betterPair(one, two);
+        }
     }
 
     /*
