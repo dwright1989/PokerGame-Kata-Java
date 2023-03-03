@@ -1,14 +1,14 @@
-package com.techreturners;
-
+package com.techreturners.HandEvaluatorTests;
+import com.techreturners.Card;
 import com.techreturners.EnumsAndConstants.*;
+import com.techreturners.Hand;
+import com.techreturners.HandEvaluator;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-public class HandEvaluatorTest {
+public class HandEvaluatorHighCardTest {
 
     /*
     Card High Tests
@@ -50,7 +50,7 @@ public class HandEvaluatorTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.KING, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        Hand winner = HandEvaluator.betterHighCardHand(handOne, handTwo);
+        Hand winner = HandEvaluator.compareHandsOfSameHandType(handOne, handTwo, HandType.HIGH_CARD);
         assertEquals(winner, handOne);
     }
 
@@ -68,7 +68,7 @@ public class HandEvaluatorTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        Hand winner = HandEvaluator.betterHighCardHand(handOne, handTwo);
+        Hand winner = HandEvaluator.compareHandsOfSameHandType(handOne, handTwo, HandType.HIGH_CARD);
         assertEquals(winner, handTwo);
     }
 
@@ -86,7 +86,7 @@ public class HandEvaluatorTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        Hand winner = HandEvaluator.betterHighCardHand(handOne, handTwo);
+        Hand winner = HandEvaluator.compareHandsOfSameHandType(handOne, handTwo, HandType.HIGH_CARD);
         assertNull(winner);
     }
 }

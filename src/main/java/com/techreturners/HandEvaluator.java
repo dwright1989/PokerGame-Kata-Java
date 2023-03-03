@@ -11,6 +11,7 @@ public class HandEvaluator {
     public Hand compareHands(Hand one, Hand two){
         /*
         Check for
+        - Royal flush
         - Straight flush
         - Four of a kind
         - Full House
@@ -36,7 +37,7 @@ public class HandEvaluator {
         return winner;
     }
 
-    private Hand compareHandsOfSameHandType(Hand one, Hand two, HandType result) {
+    public static Hand compareHandsOfSameHandType(Hand one, Hand two, HandType result) {
         Hand winner = null;
         switch(result){
             case HIGH_CARD -> winner = betterHighCardHand(one, two);

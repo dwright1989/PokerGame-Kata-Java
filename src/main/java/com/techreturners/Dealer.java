@@ -31,8 +31,5 @@ public class Dealer {
         return deck;
     }
 
-    public Hand compareHands(Hand one, Hand two){
-        return null;
-    }
 
 }
