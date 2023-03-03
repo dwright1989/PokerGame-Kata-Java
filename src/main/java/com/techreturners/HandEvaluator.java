@@ -1,10 +1,7 @@
 package com.techreturners;
 import com.techreturners.EnumsAndConstants.Constants;
 import com.techreturners.EnumsAndConstants.HandType;
-
 import java.util.List;
-import java.util.stream.Collectors;
-
 import static java.util.stream.Collectors.groupingBy;
 
 public class HandEvaluator {
@@ -23,8 +20,6 @@ public class HandEvaluator {
         - Three of a kind
         - Two Pairs
         - Pair
-        - High Card
-        I.e. if straight flush break else keep going until find one
         */
         Hand winner = null;
         evaluateHand(one);
@@ -44,8 +39,26 @@ public class HandEvaluator {
         Hand winner = null;
         switch(result){
             case HIGH_CARD,NO_COMBO -> winner = betterHighCardHand(one, two);
+            case PAIR -> winner = betterPair(one, two);
         }
         return winner;
+    }
+
+    private static Hand betterPair(Hand one, Hand two) {
+        List<Card> pairsInHandOne = one.getCards().stream().collect(groupingBy(Card::getValue))
+                .values().stream().filter(list->list.size()>=2).flatMap(List::stream).toList();
+        List<Card> pairsInHandTwo = two.getCards().stream().collect(groupingBy(Card::getValue))
+                .values().stream().filter(list->list.size()>=2).flatMap(List::stream).toList();
+        int pairOneValue = pairsInHandOne.get(0).getValue().getCardValue();
+        int pairTwoValue = pairsInHandTwo.get(0).getValue().getCardValue();
+        if(pairOneValue>pairTwoValue){
+            return one;
+        }else if(pairTwoValue>pairOneValue){
+            return two;
+        }else{
+            return betterHighCardHand(one, two);
+        }
+
     }
 
     public static Hand betterHighCardHand(Hand one, Hand two) {
@@ -77,7 +90,6 @@ public class HandEvaluator {
     }
 
     public static boolean checkIfOnePair(Hand hand) {
-        hand.sortHandNumerically();
         List<Card> pairs = hand.getCards().stream().collect(groupingBy(Card::getValue))
                 .values().stream().filter(list->list.size()>=2).flatMap(List::stream).toList();
         if(pairs.size()==2){
