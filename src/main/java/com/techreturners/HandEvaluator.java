@@ -3,6 +3,9 @@ import com.techreturners.EnumsAndConstants.Constants;
 import com.techreturners.EnumsAndConstants.HandType;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 public class HandEvaluator {
     /*
@@ -46,8 +49,8 @@ public class HandEvaluator {
     }
 
     public static Hand betterHighCardHand(Hand one, Hand two) {
-        one.sortHand();
-        two.sortHand();
+        one.sortHandNumerically();
+        two.sortHandNumerically();
         List<Card> handOneCards = one.getCards();
         List<Card> handTwoCards = two.getCards();
         for(int i = 0; i< Constants.NUM_OF_CARDS_IN_HAND; i++){
@@ -62,7 +65,26 @@ public class HandEvaluator {
 
 
     public static void evaluateHand(Hand hand){
-        boolean isHighCard = checkContainsHighCard(hand);
+        boolean foundCombo = false;
+        while(!foundCombo){
+            if(checkIfOnePair(hand)){
+                foundCombo = true;
+            }else if(checkContainsHighCard(hand)){
+                foundCombo = true;
+            }
+        }
+
+    }
+
+    public static boolean checkIfOnePair(Hand hand) {
+        hand.sortHandNumerically();
+        List<Card> pairs = hand.getCards().stream().collect(groupingBy(Card::getValue))
+                .values().stream().filter(list->list.size()>=2).flatMap(List::stream).toList();
+        if(pairs.size()==2){
+            hand.setResult(HandType.PAIR);
+            return true;
+        }
+        return false;
     }
 
     public static boolean checkContainsHighCard(Hand hand){

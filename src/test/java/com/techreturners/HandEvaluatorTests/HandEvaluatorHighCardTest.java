@@ -9,30 +9,26 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HandEvaluatorHighCardTest {
-
-    /*
-    Card High Tests
-     */
     @Test
-    public void willReturnOneHighCard(){
+    public void hasOneHighCard(){
         Hand hand = new Hand(new ArrayList<>(Arrays.asList(
                 new Card(CardValue.FIVE, CardSuit.SPADES),
                 new Card(CardValue.EIGHT, CardSuit.HEARTS),
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
-                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+                new Card(CardValue.FOUR, CardSuit.DIAMONDS))));
         assertTrue(HandEvaluator.checkContainsHighCard(hand));
         assertEquals(hand.getResult(), HandType.HIGH_CARD);
     }
 
     @Test
-    public void willReturnZeroHighCards(){
+    public void hasZeroHighCards(){
         Hand hand = new Hand(new ArrayList<>(Arrays.asList(
                 new Card(CardValue.FIVE, CardSuit.SPADES),
                 new Card(CardValue.EIGHT, CardSuit.HEARTS),
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.TWO, CardSuit.DIAMONDS),
-                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+                new Card(CardValue.FOUR, CardSuit.DIAMONDS))));
         assertFalse(HandEvaluator.checkContainsHighCard(hand));
     }
 
@@ -43,13 +39,13 @@ public class HandEvaluatorHighCardTest {
                 new Card(CardValue.EIGHT, CardSuit.HEARTS),
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
-                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+                new Card(CardValue.FOUR, CardSuit.DIAMONDS))));
         Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
                 new Card(CardValue.FIVE, CardSuit.SPADES),
                 new Card(CardValue.EIGHT, CardSuit.HEARTS),
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.KING, CardSuit.DIAMONDS),
-                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+                new Card(CardValue.FOUR, CardSuit.DIAMONDS))));
         Hand winner = HandEvaluator.compareHands(handOne, handTwo);
         assertEquals(winner, handOne);
     }
@@ -61,13 +57,13 @@ public class HandEvaluatorHighCardTest {
                 new Card(CardValue.KING, CardSuit.HEARTS),
                 new Card(CardValue.TWO, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
-                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+                new Card(CardValue.FOUR, CardSuit.DIAMONDS))));
         Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
                 new Card(CardValue.KING, CardSuit.SPADES),
                 new Card(CardValue.EIGHT, CardSuit.HEARTS),
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
-                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+                new Card(CardValue.FOUR, CardSuit.DIAMONDS))));
         Hand winner = HandEvaluator.compareHands(handOne, handTwo);
         assertEquals(winner, handTwo);
     }

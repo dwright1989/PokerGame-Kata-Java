@@ -19,7 +19,7 @@ public class HandTest {
         Card four = new Card(CardValue.ACE, CardSuit.DIAMONDS);
         Card five = new Card(CardValue.FIVE, CardSuit.DIAMONDS);
         Hand hand = new Hand(new ArrayList<>(Arrays.asList(one,two,three,four,five)));
-        hand.sortHand();
+        hand.sortHandNumerically();
         assertEquals(hand.getCards().get(0).getValue().getCardValue(),5);
         assertEquals(hand.getCards().get(1).getValue().getCardValue(),5);
         assertEquals(hand.getCards().get(2).getValue().getCardValue(),8);

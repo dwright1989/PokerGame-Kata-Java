@@ -28,7 +28,7 @@ public class Hand {
         this.result = result;
     }
 
-    public void sortHand(){
+    public void sortHandNumerically(){
         cards.sort((current, next) -> {
             Integer currentValue = current.getValue().getCardValue();
             Integer nextValue = next.getValue().getCardValue();
