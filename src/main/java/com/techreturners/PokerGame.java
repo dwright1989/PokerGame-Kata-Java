@@ -2,25 +2,38 @@ package com.techreturners;
 
 public class PokerGame {
 
-    private Player players;
+    private Player[] players;
     private Dealer dealer;
 
     public PokerGame() {
         startGame();
     }
-
-    public Player getPlayers() {
-        return players;
-    }
-    public void setPlayers(Player players) {
+    public void setPlayers(Player[] players) {
         this.players = players;
     }
 
     public void startGame(){
-        // Create Player objects
-        // Create Deck
-        // Create Dealer object
-        // Deal hands
-        // Check who wins
+        initialisePlayers();
+        initialiseDealer(initialiseDeck());
+        dealHands();
+        // dealer.checkWinner(players);
+    }
+
+    private void dealHands() {
+        for(Player player: players){
+            player.setHand(dealer.dealHand());
+        }
+    }
+
+    private void initialiseDealer(Deck deck) {
+        dealer = new Dealer(deck);
+    }
+    private Deck initialiseDeck() {
+        return new Deck();
+    }
+    private void initialisePlayers() {
+        Player playerOne = new Player("Black");
+        Player playerTwo = new Player("White");
+        players =  new Player[]{playerOne, playerTwo};
     }
 }
