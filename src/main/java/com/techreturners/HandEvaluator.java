@@ -18,7 +18,6 @@ public class HandEvaluator {
         - Four of a kind
         - Full House
         - Flush
-        - Straight
         */
         Hand winner = null;
         evaluateHand(one);
@@ -50,6 +49,19 @@ public class HandEvaluator {
             case STRAIGHT -> winner = betterStraight(one, two);
         }
         return winner;
+    }
+
+    /*
+    FLUSH
+     */
+    public static boolean checkIfFlush(Hand hand){
+        List<Card> flush = hand.getCards().stream().collect(groupingBy(Card::getSuit))
+                .values().stream().filter(list -> list.size() == 5).flatMap(List::stream).toList();
+        if(flush.size() == Constants.NUM_OF_CARDS_IN_HAND){
+            hand.setResult(HandType.FLUSH);
+            return true;
+        }
+        return false;
     }
 
     /*
