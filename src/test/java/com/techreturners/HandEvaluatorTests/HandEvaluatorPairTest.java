@@ -192,9 +192,9 @@ public class HandEvaluatorPairTest {
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
         assertNull(HandEvaluator.compareHands(handOne, handTwo));
     }
-/*
+
     @Test
-    public void compareTwoHandsWhereOnlyOneHasAPair(){
+    public void compareTwoHandsWhereOneHasAPairAndOneHasTwoPairs(){
         Hand handOne = new Hand(new ArrayList<>(Arrays.asList(
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.KING, CardSuit.HEARTS),
@@ -204,11 +204,11 @@ public class HandEvaluatorPairTest {
         Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
                 new Card(CardValue.SEVEN, CardSuit.SPADES),
                 new Card(CardValue.TWO, CardSuit.HEARTS),
-                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.TWO, CardSuit.SPADES),
                 new Card(CardValue.KING, CardSuit.DIAMONDS),
-                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+                new Card(CardValue.SEVEN, CardSuit.DIAMONDS))));
         Hand winner = HandEvaluator.compareHands(handOne, handTwo);
-        assertEquals(winner, handOne);
-    }*/
+        assertEquals(winner, handTwo);
+    }
 
 }

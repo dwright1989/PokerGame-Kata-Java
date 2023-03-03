@@ -19,8 +19,6 @@ public class HandEvaluator {
         - Full House
         - Flush
         - Straight
-        - Three of a kind
-        - Two Pairs
         */
         Hand winner = null;
         evaluateHand(one);
@@ -36,25 +34,51 @@ public class HandEvaluator {
         return winner;
     }
     public static void evaluateHand(Hand hand){
-        boolean foundCombo = false;
-        while(!foundCombo){
-            if(checkIfTwoPairs(hand)){
-                foundCombo = true;
-            }
-            else if(checkIfOnePair(hand)){
-                foundCombo = true;
-            }else if(checkContainsHighCard(hand)){
-                foundCombo = true;
-            }
-        }
+        boolean evaluated =
+                checkIfThreeOfAKind(hand) ||
+                checkIfTwoPairs(hand) ||
+                checkIfOnePair(hand) ||
+                checkContainsHighCard(hand);
     }
     private static Hand compareHandsOfSameHandType(Hand one, Hand two, HandType result) {
         Hand winner = null;
         switch(result){
             case HIGH_CARD,NO_COMBO -> winner = betterHighCardHand(one, two);
             case PAIR, TWO_PAIRS -> winner = betterPair(one, two);
+            case THREE_OF_A_KIND -> winner = betterTrio(one, two);
         }
         return winner;
+    }
+
+    /*
+    THREE OF A KIND
+     */
+    public static boolean checkIfThreeOfAKind(Hand hand) {
+        List<Card> trio = getTrioFromCards(hand.getCards());
+        if(trio.size()==3){
+            hand.setResult(HandType.THREE_OF_A_KIND);
+            return true;
+        }
+        return false;
+    }
+
+    private static List<Card> getTrioFromCards(List<Card> cards) {
+        return cards.stream().collect(groupingBy(Card::getValue))
+                .values().stream().filter(list->list.size()>=3).flatMap(List::stream).toList();
+    }
+
+    private static Hand betterTrio(Hand one, Hand two) {
+        List<Card> trioInHandOne = getTrioFromCards(one.getCards());
+        List<Card> trioInHandTwo = getTrioFromCards(two.getCards());
+        int maxOneValue = trioInHandOne.stream().max(Comparator.comparing(value -> value.getValue().getCardValue())).get().getValue().getCardValue();
+        int maxTwoValue = trioInHandTwo.stream().max(Comparator.comparing(value -> value.getValue().getCardValue())).get().getValue().getCardValue();
+        if(maxOneValue>maxTwoValue){
+            return one;
+        }else if(maxTwoValue>maxOneValue){
+            return two;
+        }else{
+            return betterHighCardHand(one, two);
+        }
     }
 
     /*
@@ -78,7 +102,7 @@ public class HandEvaluator {
     }
     private static List<Card> getPairsFromCards(List<Card> cards){
         return cards.stream().collect(groupingBy(Card::getValue))
-                .values().stream().filter(list->list.size()>=2).flatMap(List::stream).toList();
+                .values().stream().filter(list->list.size()==2).flatMap(List::stream).toList();
     }
     private static Hand betterPair(Hand one, Hand two) {
         List<Card> pairsInHandOne = getPairsFromCards(one.getCards());
@@ -93,6 +117,7 @@ public class HandEvaluator {
             return betterHighCardHand(one, two);
         }
     }
+
 
     /*
     HIGH CARD
