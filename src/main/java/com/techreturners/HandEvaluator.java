@@ -3,6 +3,7 @@ import com.techreturners.EnumsAndConstants.Constants;
 import com.techreturners.EnumsAndConstants.HandType;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import static java.util.stream.Collectors.groupingBy;
 
@@ -37,7 +38,10 @@ public class HandEvaluator {
     public static void evaluateHand(Hand hand){
         boolean foundCombo = false;
         while(!foundCombo){
-            if(checkIfOnePair(hand)){
+            if(checkIfTwoPairs(hand)){
+                foundCombo = true;
+            }
+            else if(checkIfOnePair(hand)){
                 foundCombo = true;
             }else if(checkContainsHighCard(hand)){
                 foundCombo = true;
@@ -48,7 +52,7 @@ public class HandEvaluator {
         Hand winner = null;
         switch(result){
             case HIGH_CARD,NO_COMBO -> winner = betterHighCardHand(one, two);
-            case PAIR -> winner = betterPair(one, two);
+            case PAIR, TWO_PAIRS -> winner = betterPair(one, two);
         }
         return winner;
     }
@@ -79,11 +83,11 @@ public class HandEvaluator {
     private static Hand betterPair(Hand one, Hand two) {
         List<Card> pairsInHandOne = getPairsFromCards(one.getCards());
         List<Card> pairsInHandTwo = getPairsFromCards(two.getCards());
-        int pairOneValue = pairsInHandOne.get(0).getValue().getCardValue();
-        int pairTwoValue = pairsInHandTwo.get(0).getValue().getCardValue();
-        if(pairOneValue>pairTwoValue){
+        int maxOneValue = pairsInHandOne.stream().max(Comparator.comparing(value -> value.getValue().getCardValue())).get().getValue().getCardValue();
+        int maxTwoValue = pairsInHandTwo.stream().max(Comparator.comparing(value -> value.getValue().getCardValue())).get().getValue().getCardValue();
+        if(maxOneValue>maxTwoValue){
             return one;
-        }else if(pairTwoValue>pairOneValue){
+        }else if(maxTwoValue>maxOneValue){
             return two;
         }else{
             return betterHighCardHand(one, two);

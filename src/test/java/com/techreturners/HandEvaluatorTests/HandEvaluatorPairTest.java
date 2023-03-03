@@ -71,8 +71,7 @@ public class HandEvaluatorPairTest {
                 new Card(CardValue.KING, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        Hand winner = HandEvaluator.compareHands(handOne, handTwo);
-        assertEquals(winner, handTwo);
+        assertEquals(HandEvaluator.compareHands(handOne, handTwo), handTwo);
     }
 
     @Test
@@ -89,8 +88,7 @@ public class HandEvaluatorPairTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.SEVEN, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        Hand winner = HandEvaluator.compareHands(handOne, handTwo);
-        assertEquals(winner, handOne);
+        assertEquals(HandEvaluator.compareHands(handOne, handTwo), handOne);
     }
 
     @Test
@@ -107,8 +105,7 @@ public class HandEvaluatorPairTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.KING, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        Hand winner = HandEvaluator.compareHands(handOne, handTwo);
-        assertNull(winner);
+        assertNull(HandEvaluator.compareHands(handOne, handTwo));
     }
 
     @Test
@@ -125,8 +122,93 @@ public class HandEvaluatorPairTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.KING, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        assertEquals(HandEvaluator.compareHands(handOne, handTwo), handOne);
+    }
+
+    @Test
+    public void compareTwoHandsWithDifferentTwoPairValues(){
+        Hand handOne = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.KING, CardSuit.HEARTS),
+                new Card(CardValue.TWO, CardSuit.SPADES),
+                new Card(CardValue.TEN, CardSuit.DIAMONDS),
+                new Card(CardValue.TWO, CardSuit.DIAMONDS))));
+        Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.KING, CardSuit.SPADES),
+                new Card(CardValue.ACE, CardSuit.HEARTS),
+                new Card(CardValue.KING, CardSuit.SPADES),
+                new Card(CardValue.ACE, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        assertEquals(HandEvaluator.compareHands(handOne, handTwo), handTwo);
+    }
+
+    @Test
+    public void compareTwoHandsWithTwoPairsEachAndOneTheSame(){
+        Hand handOne = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.THREE, CardSuit.HEARTS),
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.THREE, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.TWO, CardSuit.HEARTS),
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.TWO, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        assertEquals(HandEvaluator.compareHands(handOne, handTwo), handOne);
+    }
+
+    @Test
+    public void compareTwoHandsWithSameTwoPairValuesAndDifferentOtherValues(){
+        Hand handOne = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.KING, CardSuit.HEARTS),
+                new Card(CardValue.KING, CardSuit.SPADES),
+                new Card(CardValue.TEN, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.KING, CardSuit.HEARTS),
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.KING, CardSuit.DIAMONDS),
+                new Card(CardValue.THREE, CardSuit.DIAMONDS))));
+        assertEquals(HandEvaluator.compareHands(handOne, handTwo), handOne);
+    }
+
+    @Test
+    public void compareTwoHandsWithSameTwoPairValuesAndSameOtherValues(){
+        Hand handOne = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.KING, CardSuit.HEARTS),
+                new Card(CardValue.KING, CardSuit.SPADES),
+                new Card(CardValue.TEN, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.KING, CardSuit.HEARTS),
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.KING, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        assertNull(HandEvaluator.compareHands(handOne, handTwo));
+    }
+/*
+    @Test
+    public void compareTwoHandsWhereOnlyOneHasAPair(){
+        Hand handOne = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.KING, CardSuit.HEARTS),
+                new Card(CardValue.TWO, CardSuit.SPADES),
+                new Card(CardValue.TEN, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.SEVEN, CardSuit.SPADES),
+                new Card(CardValue.TWO, CardSuit.HEARTS),
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.KING, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
         Hand winner = HandEvaluator.compareHands(handOne, handTwo);
         assertEquals(winner, handOne);
-    }
+    }*/
 
 }
