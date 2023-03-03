@@ -1,7 +1,7 @@
 package com.techreturners.EnumsAndConstants;
 
 public enum HandType {
-
+    NO_COMBO(0),
     HIGH_CARD(1),
     PAIR(2),
     TWO_PAIRS(3),

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Hand {
     private List<Card> cards;
-    private HandType result;
+    private HandType result = HandType.NO_COMBO;
 
     public Hand(List<Card> cards) {
         this.cards = cards;

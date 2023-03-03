@@ -50,7 +50,7 @@ public class HandEvaluatorHighCardTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.KING, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        Hand winner = HandEvaluator.compareHandsOfSameHandType(handOne, handTwo, HandType.HIGH_CARD);
+        Hand winner = HandEvaluator.compareHands(handOne, handTwo);
         assertEquals(winner, handOne);
     }
 
@@ -68,7 +68,7 @@ public class HandEvaluatorHighCardTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        Hand winner = HandEvaluator.compareHandsOfSameHandType(handOne, handTwo, HandType.HIGH_CARD);
+        Hand winner = HandEvaluator.compareHands(handOne, handTwo);
         assertEquals(winner, handTwo);
     }
 
@@ -86,7 +86,7 @@ public class HandEvaluatorHighCardTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        Hand winner = HandEvaluator.compareHandsOfSameHandType(handOne, handTwo, HandType.HIGH_CARD);
+        Hand winner = HandEvaluator.compareHands(handOne, handTwo);
         assertNull(winner);
     }
 }

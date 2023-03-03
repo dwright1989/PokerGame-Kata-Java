@@ -8,7 +8,7 @@ public class HandEvaluator {
     /*
     Could be changed to array of hands to upscale to a 3+ player game
      */
-    public Hand compareHands(Hand one, Hand two){
+    public static Hand compareHands(Hand one, Hand two){
         /*
         Check for
         - Royal flush
@@ -40,7 +40,7 @@ public class HandEvaluator {
     public static Hand compareHandsOfSameHandType(Hand one, Hand two, HandType result) {
         Hand winner = null;
         switch(result){
-            case HIGH_CARD -> winner = betterHighCardHand(one, two);
+            case HIGH_CARD,NO_COMBO -> winner = betterHighCardHand(one, two);
         }
         return winner;
     }
