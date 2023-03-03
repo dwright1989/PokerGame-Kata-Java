@@ -1,10 +1,10 @@
 package com.techreturners;
 import com.techreturners.EnumsAndConstants.Constants;
 import com.techreturners.EnumsAndConstants.HandType;
-
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.IntStream;
+
 import static java.util.stream.Collectors.groupingBy;
 
 public class HandEvaluator {
@@ -48,6 +48,19 @@ public class HandEvaluator {
             case THREE_OF_A_KIND -> winner = betterTrio(one, two);
         }
         return winner;
+    }
+
+    /*
+    STRAIGHT
+     */
+    public static boolean checkIfStraight(Hand hand){
+        hand.sortHandNumerically();
+        List<Card> cards = hand.getCards();
+        boolean straight = IntStream.range(1, cards.size()).allMatch(value -> cards.get(value).getValue().getCardValue() - cards.get(value - 1).getValue().getCardValue() == 1);
+        if(straight){
+            hand.setResult(HandType.STRAIGHT);
+        }
+        return straight;
     }
 
     /*
