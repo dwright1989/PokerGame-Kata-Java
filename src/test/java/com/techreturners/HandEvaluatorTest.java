@@ -21,8 +21,8 @@ public class HandEvaluatorTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        Card card = HandEvaluator.isHighCard(hand);
-        assertEquals(card.getValue(), CardValue.ACE);
+        assertTrue(HandEvaluator.checkContainsHighCard(hand));
+        assertEquals(hand.getResult(), HandType.HIGH_CARD);
     }
 
     @Test
@@ -33,20 +33,60 @@ public class HandEvaluatorTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.TWO, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        Card card = HandEvaluator.isHighCard(hand);
-        assertNull(card);
+        assertFalse(HandEvaluator.checkContainsHighCard(hand));
     }
 
     @Test
-    public void willReturnHighestCard(){
-        Hand hand = new Hand(new ArrayList<>(Arrays.asList(
-                new Card(CardValue.QUEEN, CardSuit.SPADES),
-                new Card(CardValue.KING, CardSuit.HEARTS),
+    public void compareTwoHandsWithDifferentHighCards(){
+        Hand handOne = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.FIVE, CardSuit.SPADES),
+                new Card(CardValue.EIGHT, CardSuit.HEARTS),
                 new Card(CardValue.TEN, CardSuit.SPADES),
-                new Card(CardValue.TWO, CardSuit.DIAMONDS),
+                new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        Card card = HandEvaluator.isHighCard(hand);
-        assertEquals(card.getValue(), CardValue.KING);
+        Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.FIVE, CardSuit.SPADES),
+                new Card(CardValue.EIGHT, CardSuit.HEARTS),
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.KING, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        Hand winner = HandEvaluator.betterHighCardHand(handOne, handTwo);
+        assertEquals(winner, handOne);
     }
 
+    @Test
+    public void compareTwoHandsWithSameHighCards(){
+        Hand handOne = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.FIVE, CardSuit.SPADES),
+                new Card(CardValue.KING, CardSuit.HEARTS),
+                new Card(CardValue.TWO, CardSuit.SPADES),
+                new Card(CardValue.ACE, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.KING, CardSuit.SPADES),
+                new Card(CardValue.EIGHT, CardSuit.HEARTS),
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.ACE, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        Hand winner = HandEvaluator.betterHighCardHand(handOne, handTwo);
+        assertEquals(winner, handTwo);
+    }
+
+    @Test
+    public void compareTwoHandsWithIdenticalHighCardsDifferentOrder(){
+        Hand handOne = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.KING, CardSuit.HEARTS),
+                new Card(CardValue.TWO, CardSuit.SPADES),
+                new Card(CardValue.ACE, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.KING, CardSuit.SPADES),
+                new Card(CardValue.TWO, CardSuit.HEARTS),
+                new Card(CardValue.TEN, CardSuit.SPADES),
+                new Card(CardValue.ACE, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        Hand winner = HandEvaluator.betterHighCardHand(handOne, handTwo);
+        assertNull(winner);
+    }
 }

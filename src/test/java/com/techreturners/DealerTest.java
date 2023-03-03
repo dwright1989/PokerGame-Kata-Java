@@ -22,9 +22,4 @@ public class DealerTest {
         assertEquals(dealer.getDeck().getCards().size(), (Constants.TOTAL_CARDS_IN_DECK - Constants.NUM_OF_CARDS_IN_HAND));
     }
 
-    @Test
-    public void handsAreTheSame(){
-
-    }
-
 }
