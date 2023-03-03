@@ -1,13 +1,14 @@
 package com.techreturners;
 import com.techreturners.EnumsAndConstants.Constants;
 import com.techreturners.EnumsAndConstants.HandType;
+
+import java.util.ArrayList;
 import java.util.List;
 import static java.util.stream.Collectors.groupingBy;
 
 public class HandEvaluator {
-    /*
-    Could be changed to array of hands to upscale to a 3+ player game
-     */
+
+    /* COMPARE HANDS - Could be changed to array of hands to upscale to a 3+ player game */
     public static Hand compareHands(Hand one, Hand two){
         /*
         Check for
@@ -19,7 +20,6 @@ public class HandEvaluator {
         - Straight
         - Three of a kind
         - Two Pairs
-        - Pair
         */
         Hand winner = null;
         evaluateHand(one);
@@ -34,8 +34,17 @@ public class HandEvaluator {
         }
         return winner;
     }
-
-    public static Hand compareHandsOfSameHandType(Hand one, Hand two, HandType result) {
+    public static void evaluateHand(Hand hand){
+        boolean foundCombo = false;
+        while(!foundCombo){
+            if(checkIfOnePair(hand)){
+                foundCombo = true;
+            }else if(checkContainsHighCard(hand)){
+                foundCombo = true;
+            }
+        }
+    }
+    private static Hand compareHandsOfSameHandType(Hand one, Hand two, HandType result) {
         Hand winner = null;
         switch(result){
             case HIGH_CARD,NO_COMBO -> winner = betterHighCardHand(one, two);
@@ -44,11 +53,32 @@ public class HandEvaluator {
         return winner;
     }
 
+    /*
+    PAIRS
+     */
+    public static boolean checkIfOnePair(Hand hand) {
+        List<Card> pairs = getPairsFromCards(hand.getCards());
+        if(pairs.size()==2){
+            hand.setResult(HandType.PAIR);
+            return true;
+        }
+        return false;
+    }
+    public static boolean checkIfTwoPairs(Hand hand){
+        List<Card> pairs = getPairsFromCards(hand.getCards());
+        if(pairs.size()==4){
+            hand.setResult(HandType.TWO_PAIRS);
+            return true;
+        }
+        return false;
+    }
+    private static List<Card> getPairsFromCards(List<Card> cards){
+        return cards.stream().collect(groupingBy(Card::getValue))
+                .values().stream().filter(list->list.size()>=2).flatMap(List::stream).toList();
+    }
     private static Hand betterPair(Hand one, Hand two) {
-        List<Card> pairsInHandOne = one.getCards().stream().collect(groupingBy(Card::getValue))
-                .values().stream().filter(list->list.size()>=2).flatMap(List::stream).toList();
-        List<Card> pairsInHandTwo = two.getCards().stream().collect(groupingBy(Card::getValue))
-                .values().stream().filter(list->list.size()>=2).flatMap(List::stream).toList();
+        List<Card> pairsInHandOne = getPairsFromCards(one.getCards());
+        List<Card> pairsInHandTwo = getPairsFromCards(two.getCards());
         int pairOneValue = pairsInHandOne.get(0).getValue().getCardValue();
         int pairTwoValue = pairsInHandTwo.get(0).getValue().getCardValue();
         if(pairOneValue>pairTwoValue){
@@ -58,10 +88,22 @@ public class HandEvaluator {
         }else{
             return betterHighCardHand(one, two);
         }
-
     }
 
-    public static Hand betterHighCardHand(Hand one, Hand two) {
+    /*
+    HIGH CARD
+     */
+    public static boolean checkContainsHighCard(Hand hand){
+        boolean containsHighCard = false;
+        for(Card card: hand.getCards()){
+            if(card.getValue().getCardValue()>10){
+                hand.setResult(HandType.HIGH_CARD);
+                return true;
+            }
+        }
+        return containsHighCard;
+    }
+    private static Hand betterHighCardHand(Hand one, Hand two) {
         one.sortHandNumerically();
         two.sortHandNumerically();
         List<Card> handOneCards = one.getCards();
@@ -75,39 +117,4 @@ public class HandEvaluator {
         }
         return null;
     }
-
-
-    public static void evaluateHand(Hand hand){
-        boolean foundCombo = false;
-        while(!foundCombo){
-            if(checkIfOnePair(hand)){
-                foundCombo = true;
-            }else if(checkContainsHighCard(hand)){
-                foundCombo = true;
-            }
-        }
-
-    }
-
-    public static boolean checkIfOnePair(Hand hand) {
-        List<Card> pairs = hand.getCards().stream().collect(groupingBy(Card::getValue))
-                .values().stream().filter(list->list.size()>=2).flatMap(List::stream).toList();
-        if(pairs.size()==2){
-            hand.setResult(HandType.PAIR);
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean checkContainsHighCard(Hand hand){
-        boolean containsHighCard = false;
-        for(Card card: hand.getCards()){
-            if(card.getValue().getCardValue()>10){
-                hand.setResult(HandType.HIGH_CARD);
-                return true;
-            }
-        }
-        return containsHighCard;
-    }
-
 }

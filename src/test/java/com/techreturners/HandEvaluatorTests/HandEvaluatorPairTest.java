@@ -47,6 +47,17 @@ public class HandEvaluatorPairTest {
     }
 
     @Test
+    public void hasTwoPairsShouldReturnTrue(){
+        Hand hand = new Hand(new ArrayList<>(Arrays.asList(
+                new Card(CardValue.FIVE, CardSuit.SPADES),
+                new Card(CardValue.EIGHT, CardSuit.HEARTS),
+                new Card(CardValue.EIGHT, CardSuit.SPADES),
+                new Card(CardValue.ACE, CardSuit.DIAMONDS),
+                new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
+        assertTrue(HandEvaluator.checkIfTwoPairs(hand));
+    }
+
+    @Test
     public void compareTwoHandsWithDifferentPairValues(){
         Hand handOne = new Hand(new ArrayList<>(Arrays.asList(
                 new Card(CardValue.TEN, CardSuit.SPADES),
@@ -117,4 +128,5 @@ public class HandEvaluatorPairTest {
         Hand winner = HandEvaluator.compareHands(handOne, handTwo);
         assertEquals(winner, handOne);
     }
+
 }
