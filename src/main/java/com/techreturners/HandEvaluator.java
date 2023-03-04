@@ -31,6 +31,7 @@ public class HandEvaluator {
     }
     public static void evaluateHand(Hand hand){
         boolean evaluated =
+                checkIfStraightFlush(hand) ||
                 checkIfFourOfAKind(hand) ||
                 checkIfFullHouse(hand) ||
                 checkIfFlush(hand) ||
@@ -47,7 +48,7 @@ public class HandEvaluator {
             case PAIR, TWO_PAIRS -> winner = betterPair(one, two);
             case THREE_OF_A_KIND -> winner = betterTrio(one, two);
             case STRAIGHT -> winner = betterStraight(one, two);
-            case FLUSH -> winner = betterFlush(one, two);
+            case FLUSH, STRAIGHT_FLUSH -> winner = betterFlush(one, two);
             case FULL_HOUSE -> winner = betterFullHouse(one, two);
             case FOUR_OF_A_KIND -> winner = betterFourOfAKind(one, two);
         }
