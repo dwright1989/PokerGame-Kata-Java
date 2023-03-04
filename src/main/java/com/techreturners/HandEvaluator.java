@@ -15,7 +15,6 @@ public class HandEvaluator {
         Check for
         - Royal flush
         - Straight flush
-        - Four of a kind
         */
         Hand winner = null;
         evaluateHand(one);
@@ -53,6 +52,19 @@ public class HandEvaluator {
             case FOUR_OF_A_KIND -> winner = betterFourOfAKind(one, two);
         }
         return winner;
+    }
+
+    /*
+    STRAIGHT FLUSH
+     */
+    public static boolean checkIfStraightFlush(Hand hand){
+        if(checkIfFlush(hand)){
+             if(checkIfStraight(hand)){
+                 hand.setResult(HandType.STRAIGHT_FLUSH);
+                 return true;
+             }
+        }
+        return false;
     }
 
     /*
