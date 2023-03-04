@@ -32,6 +32,7 @@ public class HandEvaluator {
     }
     public static void evaluateHand(Hand hand){
         boolean evaluated =
+                checkIfFourOfAKind(hand) ||
                 checkIfFullHouse(hand) ||
                 checkIfFlush(hand) ||
                 checkIfStraight(hand) ||
@@ -49,6 +50,7 @@ public class HandEvaluator {
             case STRAIGHT -> winner = betterStraight(one, two);
             case FLUSH -> winner = betterFlush(one, two);
             case FULL_HOUSE -> winner = betterFullHouse(one, two);
+            case FOUR_OF_A_KIND -> winner = betterFourOfAKind(one, two);
         }
         return winner;
     }
@@ -67,6 +69,18 @@ public class HandEvaluator {
     private static List<Card> getQuadFromCards(List<Card> cards) {
         return cards.stream().collect(groupingBy(Card::getValue))
                 .values().stream().filter(list->list.size()>=4).flatMap(List::stream).toList();
+    }
+
+    private static Hand betterFourOfAKind(Hand one, Hand two) {
+        List<Card> fourOfAKindFromHandOne = getQuadFromCards(one.getCards());
+        List<Card> fourOfAKindFromHandTwo = getQuadFromCards(two.getCards());
+        if(fourOfAKindFromHandOne.get(0).getValue().getCardValue()>fourOfAKindFromHandTwo.get(0).getValue().getCardValue()){
+            return one;
+        }else if(fourOfAKindFromHandOne.get(0).getValue().getCardValue()<fourOfAKindFromHandTwo.get(0).getValue().getCardValue()){
+            return two;
+        }else{
+            return betterHighCardHand(one, two);
+        }
     }
 
     /*
