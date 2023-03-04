@@ -1,6 +1,5 @@
 package com.techreturners;
-import com.techreturners.EnumsAndConstants.Constants;
-import com.techreturners.EnumsAndConstants.HandType;
+import com.techreturners.EnumsAndConstants.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -11,11 +10,6 @@ public class HandEvaluator {
 
     /* COMPARE HANDS - Could be changed to array of hands to upscale to a 3+ player game */
     public static Hand compareHands(Hand one, Hand two){
-        /*
-        Check for
-        - Royal flush
-        - Straight flush
-        */
         Hand winner = null;
         evaluateHand(one);
         evaluateHand(two);
@@ -31,6 +25,7 @@ public class HandEvaluator {
     }
     public static void evaluateHand(Hand hand){
         boolean evaluated =
+                checkIfRoyalFlush(hand) ||
                 checkIfStraightFlush(hand) ||
                 checkIfFourOfAKind(hand) ||
                 checkIfFullHouse(hand) ||
@@ -53,6 +48,23 @@ public class HandEvaluator {
             case FOUR_OF_A_KIND -> winner = betterFourOfAKind(one, two);
         }
         return winner;
+    }
+    /*
+    ROYAL FLUSH
+     */
+    public static boolean checkIfRoyalFlush(Hand hand){
+        if(checkIfStraightFlush(hand)){
+            boolean royalFlush = hand.getCards().stream().anyMatch(card -> card.getValue().equals(CardValue.TEN)) &&
+                    hand.getCards().stream().anyMatch(card -> card.getValue().equals(CardValue.JACK)) &&
+                    hand.getCards().stream().anyMatch(card -> card.getValue().equals(CardValue.QUEEN)) &&
+                    hand.getCards().stream().anyMatch(card -> card.getValue().equals(CardValue.KING)) &&
+                    hand.getCards().stream().anyMatch(card -> card.getValue().equals(CardValue.ACE));
+            if(royalFlush){
+                hand.setResult(HandType.ROYAL_FLUSH);
+                return true;
+            }
+        }
+        return false;
     }
 
     /*

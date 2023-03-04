@@ -42,14 +42,14 @@ public class HandEvaluatorFlushTest {
     public void compareTwoHandsWithDifferentFlushValues(){
         Hand handOne = new Hand(new ArrayList<>(Arrays.asList(
                 new Card(CardValue.TEN, CardSuit.SPADES),
-                new Card(CardValue.KING, CardSuit.SPADES),
+                new Card(CardValue.NINE, CardSuit.SPADES),
                 new Card(CardValue.JACK, CardSuit.SPADES),
                 new Card(CardValue.QUEEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.SPADES))));
         Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
                 new Card(CardValue.THREE, CardSuit.DIAMONDS),
                 new Card(CardValue.TWO, CardSuit.DIAMONDS),
-                new Card(CardValue.SIX, CardSuit.DIAMONDS),
+                new Card(CardValue.SEVEN, CardSuit.DIAMONDS),
                 new Card(CardValue.FOUR, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
         assertEquals(HandEvaluator.compareHands(handOne, handTwo), handOne);
@@ -84,9 +84,9 @@ public class HandEvaluatorFlushTest {
         Hand handTwo = new Hand(new ArrayList<>(Arrays.asList(
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.KING, CardSuit.SPADES),
-                new Card(CardValue.JACK, CardSuit.SPADES),
+                new Card(CardValue.TWO, CardSuit.SPADES),
                 new Card(CardValue.QUEEN, CardSuit.SPADES),
-                new Card(CardValue.ACE, CardSuit.SPADES))));
+                new Card(CardValue.THREE, CardSuit.SPADES))));
         assertEquals(HandEvaluator.compareHands(handOne, handTwo), handTwo);
         assertEquals(handOne.getResult(), HandType.STRAIGHT);
         assertEquals(handTwo.getResult(), HandType.FLUSH);
