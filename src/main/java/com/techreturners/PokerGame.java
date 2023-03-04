@@ -16,7 +16,7 @@ public class PokerGame {
         initialisePlayers();
         initialiseDealer(initialiseDeck());
         dealHands();
-        // dealer.checkWinner(players);
+        Player winner = dealer.checkWinner(players);
     }
 
     private void dealHands() {

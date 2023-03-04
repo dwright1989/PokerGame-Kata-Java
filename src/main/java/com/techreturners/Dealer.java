@@ -32,4 +32,16 @@ public class Dealer {
     }
 
 
+    public Player checkWinner(Player[] players) {
+        Player playerOne = players[0];
+        Player playerTwo = players[1];
+        Hand hand =   HandEvaluator.compareHands(playerOne.getHand(), playerTwo.getHand());
+        if(hand == playerOne.getHand()){
+            return playerOne;
+        }else if(hand==playerTwo.getHand()){
+            return playerTwo;
+        }else{
+            return null;
+        }
+    }
 }
