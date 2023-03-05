@@ -56,32 +56,40 @@ public class CommandLineUI {
 
     public void printHand(Hand hand){
         List<Card> cards = hand.getCards();
-        for(int i=0; i<cards.size(); i++){
-            System.out.print("+----------+  ");
+        for(Card card : cards){
+            System.out.print("+-----"+CardUnicode.valueOf(card.getSuit().name())+"-----+  ");
         }
         System.out.println();
-        for(int i=0; i<cards.size(); i++){
-            System.out.print("|          |  ");
+        for(Card card : cards){
+            System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()) + "         " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
         }
         System.out.println();
-        for(int i=0; i<cards.size(); i++){
-            System.out.print("|          |  ");
-        }
-        System.out.println();
-        for (Card card : cards) {
-            System.out.print("|    " + card.getValue().getCardValue() + "     |  ");
+        for(Card card : cards){
+            System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()) + "         " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
         }
         System.out.println();
         for (Card card : cards) {
-            System.out.print("|    " + CardUnicode.valueOf(card.getSuit().name()) + "     |  ");
+            int cardValue = card.getValue().getCardValue();
+            if(cardValue<=9){
+                System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()) +   "    " + card.getValue().getCardValue() + "    " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
+            }else if(cardValue==10){
+                System.out.print("|"  + CardUnicode.valueOf(card.getSuit().name()) +   "    "      + card.getValue().getCardValue() + "   " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
+            }else{
+                System.out.print("|"  + CardUnicode.valueOf(card.getSuit().name()) +   "    "  + card.getValue().toString().charAt(0) + "    " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
+            }
+
         }
         System.out.println();
-        for(int i=0; i<cards.size(); i++){
-            System.out.print("|          |  ");
+        for(Card card : cards){
+            System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()) + "         " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
         }
         System.out.println();
-        for(int i=0; i<cards.size(); i++){
-            System.out.print("+----------+  ");
+        for(Card card : cards){
+            System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()) + "         " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
+        }
+        System.out.println();
+        for(Card card : cards){
+            System.out.print("+-----"+CardUnicode.valueOf(card.getSuit().name())+"-----+  ");
         }
         System.out.println();
     }
