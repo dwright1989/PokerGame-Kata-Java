@@ -6,12 +6,15 @@ public class PokerGame {
     private Dealer dealer;
 
     public PokerGame() {
-        startGame();
+        //startGame();
     }
     public void setPlayers(Player[] players) {
         this.players = players;
     }
 
+    public void setPlayersByNames(String nameOne, String nameTwo){
+        setPlayers(new Player[]{new Player(nameOne), new Player(nameTwo)});
+    }
     public void startGame(){
         initialisePlayers();
         initialiseDealer(initialiseDeck());
