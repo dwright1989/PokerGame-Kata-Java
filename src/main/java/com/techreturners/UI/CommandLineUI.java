@@ -1,7 +1,12 @@
 package com.techreturners.UI;
 
+import com.techreturners.Card;
+import com.techreturners.EnumsAndConstants.CardUnicode;
+import com.techreturners.EnumsAndConstants.Constants;
+import com.techreturners.Hand;
 import com.techreturners.PokerGame;
 
+import java.util.List;
 import java.util.Scanner;
 
 import static com.techreturners.UI.UIValidation.isValidName;
@@ -19,10 +24,19 @@ public class CommandLineUI {
 
     public void init(){
         getPlayerDetails();
+        displayWelcome();
+        printHand(game.getPlayers()[0].getHand());
+        printHand(game.getPlayers()[1].getHand());
+    }
+
+    private void displayWelcome() {
+        System.out.println("Welcome " + game.getPlayers()[0].getName() + " and " + game.getPlayers()[1].getName());
+        System.out.println("Dealing cards...");
     }
 
     public void getPlayerDetails(){
         System.out.println("\nWelcome to Poker Game.");
+        System.out.println(CardUnicode.SPADES + " " + CardUnicode.CLUBS + " " + CardUnicode.HEARTS + " " + CardUnicode.DIAMONDS);
         System.out.println("\nPlayer 1 - Please enter your name:");
         String player1name = scanner.next();
         while(!isValidName(player1name)){
@@ -36,6 +50,39 @@ public class CommandLineUI {
             player2name = scanner.next();
         }
         game.setPlayersByNames(player1name, player2name);
+        game.startGame();
     }
 
+
+    public void printHand(Hand hand){
+        List<Card> cards = hand.getCards();
+        for(int i=0; i<cards.size(); i++){
+            System.out.print("+----------+  ");
+        }
+        System.out.println();
+        for(int i=0; i<cards.size(); i++){
+            System.out.print("|          |  ");
+        }
+        System.out.println();
+        for(int i=0; i<cards.size(); i++){
+            System.out.print("|          |  ");
+        }
+        System.out.println();
+        for (Card card : cards) {
+            System.out.print("|    " + card.getValue().getCardValue() + "     |  ");
+        }
+        System.out.println();
+        for (Card card : cards) {
+            System.out.print("|    " + CardUnicode.valueOf(card.getSuit().name()) + "     |  ");
+        }
+        System.out.println();
+        for(int i=0; i<cards.size(); i++){
+            System.out.print("|          |  ");
+        }
+        System.out.println();
+        for(int i=0; i<cards.size(); i++){
+            System.out.print("+----------+  ");
+        }
+        System.out.println();
+    }
 }

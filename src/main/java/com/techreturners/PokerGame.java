@@ -12,6 +12,10 @@ public class PokerGame {
         this.players = players;
     }
 
+    public Player[] getPlayers() {
+        return players;
+    }
+
     public void setPlayersByNames(String nameOne, String nameTwo){
         setPlayers(new Player[]{new Player(nameOne), new Player(nameTwo)});
     }
@@ -39,4 +43,6 @@ public class PokerGame {
         Player playerTwo = new Player("White");
         players =  new Player[]{playerOne, playerTwo};
     }
+
+
 }

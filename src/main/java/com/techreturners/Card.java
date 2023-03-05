@@ -20,4 +20,5 @@ public class Card {
     public CardValue getValue() {
         return value;
     }
+
 }
