@@ -1,14 +1,9 @@
 package com.techreturners.UI;
 
-import com.techreturners.Card;
-import com.techreturners.EnumsAndConstants.CardUnicode;
-import com.techreturners.EnumsAndConstants.Constants;
-import com.techreturners.Hand;
-import com.techreturners.PokerGame;
-
+import com.techreturners.*;
+import com.techreturners.EnumsAndConstants.*;
 import java.util.List;
 import java.util.Scanner;
-
 import static com.techreturners.UI.UIValidation.isValidName;
 
 public class CommandLineUI {
@@ -25,8 +20,17 @@ public class CommandLineUI {
     public void init(){
         getPlayerDetails();
         displayWelcome();
+        game.startGame();
+        System.out.println(Colour.MAIN_TEXT_COLOUR);
+        System.out.println(game.getPlayers()[0].getName()+"'s hand is: ");
+        System.out.println(game.getPlayers()[0].getHand().getResult());
         printHand(game.getPlayers()[0].getHand());
+        System.out.println(Colour.MAIN_TEXT_COLOUR);
+        System.out.println(game.getPlayers()[1].getName()+"'s hand is: ");
+        System.out.println(game.getPlayers()[1].getHand().getResult());
         printHand(game.getPlayers()[1].getHand());
+        System.out.println("The winner is: " + game.getWinner().getName() + " with " + game.getWinner().getHand().getResult());
+
     }
 
     private void displayWelcome() {
@@ -40,7 +44,7 @@ public class CommandLineUI {
         System.out.print(CardUnicode.HEARTS.getColour() + "" +CardUnicode.HEARTS.getCode()+ " ");
         System.out.print(CardUnicode.CLUBS.getColour() + "" +CardUnicode.CLUBS.getCode()+ " ");
         System.out.print(CardUnicode.DIAMONDS.getColour() + "" + CardUnicode.DIAMONDS.getCode()+ " ");
-        System.out.println("\033[0m");
+        System.out.println(Colour.RESET);
         System.out.println("\nPlayer 1 - Please enter your name:");
         String player1name = scanner.next();
         while(!isValidName(player1name)){
@@ -54,7 +58,6 @@ public class CommandLineUI {
             player2name = scanner.next();
         }
         game.setPlayersByNames(player1name, player2name);
-        game.startGame();
     }
 
 

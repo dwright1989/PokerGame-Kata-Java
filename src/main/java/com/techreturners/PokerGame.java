@@ -5,6 +5,8 @@ public class PokerGame {
     private Player[] players;
     private Dealer dealer;
 
+    private Player winner;
+
     public PokerGame() {
         //startGame();
     }
@@ -16,14 +18,17 @@ public class PokerGame {
         return players;
     }
 
+    public Player getWinner() {
+        return winner;
+    }
+
     public void setPlayersByNames(String nameOne, String nameTwo){
         setPlayers(new Player[]{new Player(nameOne), new Player(nameTwo)});
     }
     public void startGame(){
-        initialisePlayers();
         initialiseDealer(initialiseDeck());
         dealHands();
-        Player winner = dealer.checkWinner(players);
+        winner = dealer.checkWinner(players);
     }
 
     private void dealHands() {
@@ -37,11 +42,6 @@ public class PokerGame {
     }
     private Deck initialiseDeck() {
         return new Deck();
-    }
-    private void initialisePlayers() {
-        Player playerOne = new Player("Black");
-        Player playerTwo = new Player("White");
-        players =  new Player[]{playerOne, playerTwo};
     }
 
 
