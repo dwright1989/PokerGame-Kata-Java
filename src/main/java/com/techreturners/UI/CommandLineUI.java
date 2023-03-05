@@ -36,7 +36,11 @@ public class CommandLineUI {
 
     public void getPlayerDetails(){
         System.out.println("\nWelcome to Poker Game.");
-        System.out.println(CardUnicode.SPADES + " " + CardUnicode.CLUBS + " " + CardUnicode.HEARTS + " " + CardUnicode.DIAMONDS);
+        System.out.print(CardUnicode.SPADES.getColour() + "" +CardUnicode.SPADES.getCode() + " ");
+        System.out.print(CardUnicode.HEARTS.getColour() + "" +CardUnicode.HEARTS.getCode()+ " ");
+        System.out.print(CardUnicode.CLUBS.getColour() + "" +CardUnicode.CLUBS.getCode()+ " ");
+        System.out.print(CardUnicode.DIAMONDS.getColour() + "" + CardUnicode.DIAMONDS.getCode()+ " ");
+        System.out.println("\033[0m");
         System.out.println("\nPlayer 1 - Please enter your name:");
         String player1name = scanner.next();
         while(!isValidName(player1name)){
@@ -57,39 +61,46 @@ public class CommandLineUI {
     public void printHand(Hand hand){
         List<Card> cards = hand.getCards();
         for(Card card : cards){
-            System.out.print("+-----"+CardUnicode.valueOf(card.getSuit().name())+"-----+  ");
+            System.out.print(CardUnicode.valueOf(card.getSuit().name()).getColour());
+            System.out.print("+-----"+CardUnicode.valueOf(card.getSuit().name()).getCode()+"-----+  ");
         }
         System.out.println();
         for(Card card : cards){
-            System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()) + "         " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
+            System.out.print(CardUnicode.valueOf(card.getSuit().name()).getColour());
+            System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()).getCode() + "         " + CardUnicode.valueOf(card.getSuit().name()).getCode() + "|  ");
         }
         System.out.println();
         for(Card card : cards){
-            System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()) + "         " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
+            System.out.print(CardUnicode.valueOf(card.getSuit().name()).getColour());
+            System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()).getCode() + "         " + CardUnicode.valueOf(card.getSuit().name()).getCode() + "|  ");
         }
         System.out.println();
         for (Card card : cards) {
             int cardValue = card.getValue().getCardValue();
+            System.out.print(CardUnicode.valueOf(card.getSuit().name()).getColour());
             if(cardValue<=9){
-                System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()) +   "    " + card.getValue().getCardValue() + "    " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
+                System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()).getCode() +   "    " + card.getValue().getCardValue() + "    " + CardUnicode.valueOf(card.getSuit().name()).getCode() + "|  ");
             }else if(cardValue==10){
-                System.out.print("|"  + CardUnicode.valueOf(card.getSuit().name()) +   "    "      + card.getValue().getCardValue() + "   " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
+                System.out.print("|"  + CardUnicode.valueOf(card.getSuit().name()).getCode() +   "    "      + card.getValue().getCardValue() + "   " + CardUnicode.valueOf(card.getSuit().name()).getCode() + "|  ");
             }else{
-                System.out.print("|"  + CardUnicode.valueOf(card.getSuit().name()) +   "    "  + card.getValue().toString().charAt(0) + "    " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
+                System.out.print("|"  + CardUnicode.valueOf(card.getSuit().name()).getCode() +   "    "  + card.getValue().toString().charAt(0) + "    " + CardUnicode.valueOf(card.getSuit().name()).getCode() + "|  ");
             }
 
         }
         System.out.println();
         for(Card card : cards){
-            System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()) + "         " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
+            System.out.print(CardUnicode.valueOf(card.getSuit().name()).getColour());
+            System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()).getCode() + "         " + CardUnicode.valueOf(card.getSuit().name()).getCode() + "|  ");
         }
         System.out.println();
         for(Card card : cards){
-            System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()) + "         " + CardUnicode.valueOf(card.getSuit().name()) + "|  ");
+            System.out.print(CardUnicode.valueOf(card.getSuit().name()).getColour());
+            System.out.print("|" + CardUnicode.valueOf(card.getSuit().name()).getCode() + "         " + CardUnicode.valueOf(card.getSuit().name()).getCode() + "|  ");
         }
         System.out.println();
         for(Card card : cards){
-            System.out.print("+-----"+CardUnicode.valueOf(card.getSuit().name())+"-----+  ");
+            System.out.print(CardUnicode.valueOf(card.getSuit().name()).getColour());
+            System.out.print("+-----"+CardUnicode.valueOf(card.getSuit().name()).getCode()+"-----+  ");
         }
         System.out.println();
     }
