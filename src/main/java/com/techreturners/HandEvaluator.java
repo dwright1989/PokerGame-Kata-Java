@@ -153,8 +153,15 @@ public class HandEvaluator {
     public static boolean checkIfStraight(Hand hand){
         hand.sortHandNumerically();
         List<Card> cards = hand.getCards();
-        boolean straight = IntStream.range(1, cards.size()).allMatch(
-                value -> cards.get(value).getValue().getCardValue() - cards.get(value - 1).getValue().getCardValue() == 1);
+        boolean straight = false;
+        // Check for ace LOW (automatically considered HIGH)
+        if(cards.get(Constants.NUM_OF_CARDS_IN_HAND-1).getValue().equals(CardValue.ACE) && cards.get(0).getValue().equals(CardValue.TWO)){
+            straight = IntStream.range(1, cards.size()-1).allMatch(
+                    value -> cards.get(value).getValue().getCardValue() - cards.get(value - 1).getValue().getCardValue() == 1);
+        }else{
+            straight = IntStream.range(1, cards.size()).allMatch(
+                    value -> cards.get(value).getValue().getCardValue() - cards.get(value - 1).getValue().getCardValue() == 1);
+        }
         if(straight){
             hand.setResult(HandType.STRAIGHT);
         }
