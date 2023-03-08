@@ -1,15 +1,12 @@
 package com.techreturners.HandEvaluatorTests;
 
-import com.techreturners.Card;
+import com.techreturners.*;
 import com.techreturners.EnumsAndConstants.*;
-import com.techreturners.Hand;
-import com.techreturners.HandEvaluator;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
+import static com.techreturners.HandEvaluator.threeOfAKind;
 
 public class HandEvaluatorThreeOfAKindTest {
 
@@ -21,7 +18,7 @@ public class HandEvaluatorThreeOfAKindTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        assertTrue(HandEvaluator.checkIfThreeOfAKind(hand));
+        assertTrue(threeOfAKind.meetCriteria(hand));
         assertEquals(hand.getResult(), HandType.THREE_OF_A_KIND);
     }
 
@@ -33,7 +30,7 @@ public class HandEvaluatorThreeOfAKindTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.FIVE, CardSuit.CLUBS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        assertFalse(HandEvaluator.checkIfThreeOfAKind(hand));
+        assertFalse(threeOfAKind.meetCriteria(hand));
     }
 
 

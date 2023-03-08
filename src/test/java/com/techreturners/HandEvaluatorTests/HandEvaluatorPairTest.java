@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static com.techreturners.HandEvaluator.pair;
+import static com.techreturners.HandEvaluator.twoPair;
 
 public class HandEvaluatorPairTest {
     @Test
@@ -20,7 +22,7 @@ public class HandEvaluatorPairTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        assertTrue(HandEvaluator.checkIfOnePair(hand));
+        assertTrue(pair.meetCriteria(hand));
         assertEquals(hand.getResult(), HandType.PAIR);
     }
 
@@ -32,7 +34,7 @@ public class HandEvaluatorPairTest {
                 new Card(CardValue.FIVE, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        assertFalse(HandEvaluator.checkIfOnePair(hand));
+        assertFalse(pair.meetCriteria(hand));
     }
 
     @Test
@@ -43,7 +45,7 @@ public class HandEvaluatorPairTest {
                 new Card(CardValue.EIGHT, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        assertFalse(HandEvaluator.checkIfOnePair(hand));
+        assertFalse(pair.meetCriteria(hand));
     }
 
     @Test
@@ -54,7 +56,7 @@ public class HandEvaluatorPairTest {
                 new Card(CardValue.EIGHT, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        assertTrue(HandEvaluator.checkIfTwoPairs(hand));
+        assertTrue(twoPair.meetCriteria(hand));
     }
 
     @Test

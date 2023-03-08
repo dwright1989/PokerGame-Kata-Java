@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
+import static com.techreturners.HandEvaluator.cardHigh;
 
 public class HandEvaluatorHighCardTest {
     @Test
@@ -17,7 +18,7 @@ public class HandEvaluatorHighCardTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.DIAMONDS),
                 new Card(CardValue.FOUR, CardSuit.DIAMONDS))));
-        assertTrue(HandEvaluator.checkContainsHighCard(hand));
+        assertTrue(cardHigh.meetCriteria(hand));
         assertEquals(hand.getResult(), HandType.HIGH_CARD);
     }
 
@@ -29,7 +30,7 @@ public class HandEvaluatorHighCardTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.TWO, CardSuit.DIAMONDS),
                 new Card(CardValue.FOUR, CardSuit.DIAMONDS))));
-        assertFalse(HandEvaluator.checkContainsHighCard(hand));
+        assertFalse(cardHigh.meetCriteria(hand));
     }
 
     @Test

@@ -1,18 +1,12 @@
 package com.techreturners.HandEvaluatorTests;
 
-import com.techreturners.Card;
-import com.techreturners.EnumsAndConstants.CardSuit;
-import com.techreturners.EnumsAndConstants.CardValue;
-import com.techreturners.EnumsAndConstants.HandType;
-import com.techreturners.Hand;
-import com.techreturners.HandEvaluator;
+import com.techreturners.*;
+import com.techreturners.EnumsAndConstants.*;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static com.techreturners.HandEvaluator.royalFlush;
 
 public class HandEvaluatorRoyalFlushTest {
 
@@ -24,7 +18,7 @@ public class HandEvaluatorRoyalFlushTest {
                 new Card(CardValue.QUEEN, CardSuit.SPADES),
                 new Card(CardValue.ACE, CardSuit.SPADES),
                 new Card(CardValue.TEN, CardSuit.SPADES))));
-        assertTrue(HandEvaluator.checkIfRoyalFlush(hand));
+        assertTrue(royalFlush.meetCriteria(hand));
         assertEquals(hand.getResult(), HandType.ROYAL_FLUSH);
     }
     @Test

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
+import static com.techreturners.HandEvaluator.fullHouse;
 
 public class HandEvaluatorFullHouseTest {
     @Test
@@ -16,7 +17,7 @@ public class HandEvaluatorFullHouseTest {
                 new Card(CardValue.TWO, CardSuit.SPADES),
                 new Card(CardValue.TWO, CardSuit.CLUBS),
                 new Card(CardValue.TEN, CardSuit.SPADES))));
-        assertTrue(HandEvaluator.checkIfFullHouse(hand));
+        assertTrue(fullHouse.meetCriteria(hand));
         assertEquals(hand.getResult(), HandType.FULL_HOUSE);
     }
 
@@ -28,7 +29,7 @@ public class HandEvaluatorFullHouseTest {
                 new Card(CardValue.TWO, CardSuit.SPADES),
                 new Card(CardValue.TWO, CardSuit.CLUBS),
                 new Card(CardValue.TEN, CardSuit.SPADES))));
-        assertFalse(HandEvaluator.checkIfFullHouse(hand));
+        assertFalse(fullHouse.meetCriteria(hand));
         assertEquals(hand.getResult(), HandType.THREE_OF_A_KIND);
     }
 

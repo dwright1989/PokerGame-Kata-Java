@@ -1,17 +1,15 @@
 package com.techreturners.HandEvaluatorTests;
 
-import com.techreturners.Card;
+import com.techreturners.*;
 import com.techreturners.EnumsAndConstants.*;
-import com.techreturners.Hand;
-import com.techreturners.HandEvaluator;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
+import static com.techreturners.HandEvaluator.straight;
 
 public class HandEvaluatorStraightTest {
+
 
     @Test
     public void handHasStraightInOrder(){
@@ -21,7 +19,7 @@ public class HandEvaluatorStraightTest {
                 new Card(CardValue.SEVEN, CardSuit.SPADES),
                 new Card(CardValue.EIGHT, CardSuit.DIAMONDS),
                 new Card(CardValue.NINE, CardSuit.DIAMONDS))));
-        assertTrue(HandEvaluator.checkIfStraight(hand));
+        assertTrue(straight.meetCriteria(hand));
         assertEquals(hand.getResult(), HandType.STRAIGHT);
     }
 
@@ -33,7 +31,7 @@ public class HandEvaluatorStraightTest {
                 new Card(CardValue.SEVEN, CardSuit.SPADES),
                 new Card(CardValue.EIGHT, CardSuit.DIAMONDS),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS))));
-        assertTrue(HandEvaluator.checkIfStraight(hand));
+        assertTrue(straight.meetCriteria(hand));
         assertEquals(hand.getResult(), HandType.STRAIGHT);
     }
 
@@ -46,7 +44,7 @@ public class HandEvaluatorStraightTest {
                 new Card(CardValue.TEN, CardSuit.SPADES),
                 new Card(CardValue.JACK, CardSuit.DIAMONDS),
                 new Card(CardValue.KING, CardSuit.DIAMONDS))));
-        assertTrue(HandEvaluator.checkIfStraight(hand));
+        assertTrue(straight.meetCriteria(hand));
         assertEquals(hand.getResult(), HandType.STRAIGHT);
     }
 
@@ -59,7 +57,7 @@ public class HandEvaluatorStraightTest {
                 new Card(CardValue.FIVE, CardSuit.SPADES),
                 new Card(CardValue.THREE, CardSuit.DIAMONDS),
                 new Card(CardValue.FOUR, CardSuit.DIAMONDS))));
-        assertTrue(HandEvaluator.checkIfStraight(hand));
+        assertTrue(straight.meetCriteria(hand));
         assertEquals(hand.getResult(), HandType.STRAIGHT);
     }
 

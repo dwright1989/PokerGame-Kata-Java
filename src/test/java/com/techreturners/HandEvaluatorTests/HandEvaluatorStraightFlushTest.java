@@ -1,17 +1,12 @@
 package com.techreturners.HandEvaluatorTests;
 
-import com.techreturners.Card;
-import com.techreturners.EnumsAndConstants.CardSuit;
-import com.techreturners.EnumsAndConstants.CardValue;
-import com.techreturners.EnumsAndConstants.HandType;
-import com.techreturners.Hand;
-import com.techreturners.HandEvaluator;
+import com.techreturners.*;
+import com.techreturners.EnumsAndConstants.*;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
+import static com.techreturners.HandEvaluator.straightFlush;
 
 public class HandEvaluatorStraightFlushTest {
 
@@ -23,9 +18,10 @@ public class HandEvaluatorStraightFlushTest {
                 new Card(CardValue.FOUR, CardSuit.SPADES),
                 new Card(CardValue.THREE, CardSuit.SPADES),
                 new Card(CardValue.FIVE, CardSuit.SPADES))));
-        assertTrue(HandEvaluator.checkIfStraightFlush(hand));
+        assertTrue(straightFlush.meetCriteria(hand));
         assertEquals(hand.getResult(), HandType.STRAIGHT_FLUSH);
     }
+
 
     @Test
     public void handHasFlushOnly(){
@@ -35,7 +31,7 @@ public class HandEvaluatorStraightFlushTest {
                 new Card(CardValue.SEVEN, CardSuit.SPADES),
                 new Card(CardValue.KING, CardSuit.SPADES),
                 new Card(CardValue.NINE, CardSuit.SPADES))));
-        assertFalse(HandEvaluator.checkIfStraightFlush(hand));
+        assertFalse(straightFlush.meetCriteria(hand));
     }
 
     @Test
@@ -46,7 +42,7 @@ public class HandEvaluatorStraightFlushTest {
                 new Card(CardValue.THREE, CardSuit.SPADES),
                 new Card(CardValue.FIVE, CardSuit.DIAMONDS),
                 new Card(CardValue.FOUR, CardSuit.SPADES))));
-        assertFalse(HandEvaluator.checkIfStraightFlush(hand));
+        assertFalse(straightFlush.meetCriteria(hand));
     }
 
     @Test
